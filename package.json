@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "firebase": "^8.9.1",
+    "toastr": "^2.1.4",
     "vue": "^3.0.0"
   },
   "devDependencies": {

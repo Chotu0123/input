@@ -1,26 +1,45 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <form v.on:submit.prevent="add">
+      <input types="text" v-model="text.text" />
+        <input type="submit" value="Add" />
+    </form>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Firebase from 'firebase'
+import toastr from 'toastr'
+let config={
+    apiKey: "AIzaSyDrlDqZfYbo-ANLogqTFYUmezsJKGIHWoI",
+    authDomain: "fir-vue-35c9b.firebaseapp.com",
+    projectId: "fir-vue-35c9b",
+    storageBucket: "fir-vue-35c9b.appspot.com",
+    messagingSenderId: "389682140502",
+    appId: "1:389682140502:web:283c601973fe3691d532f7"
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+}
+
+let app = Firebase.initializeApp(config)
+let db = app.database()
+let textRef = db.ref('text')
+export default{
+  name: 'app', firebase:{
+    texts : textRef
+  },
+  data(){
+    return{
+      text:{
+        text:''
+      }
+    }
+  },
+  methods:{
+    add: function(){
+      textRef.push(this.text)
+      this.text.text
+      toastr.success('Added')
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
